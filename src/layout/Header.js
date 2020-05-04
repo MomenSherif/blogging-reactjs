@@ -21,7 +21,7 @@ const Header = () => {
   };
 
   return (
-    <AppBar position='sticky' color='transparent'>
+    <AppBar position='sticky' color='default' elevation={3}>
       <Container>
         <Grid container alignItems='center'>
           <Typography
@@ -47,10 +47,10 @@ const Header = () => {
             style={{ flex: 1 }}
           >
             <Tab label='Home' component={Link} to='/' />
-            <Tab label='What followers say!' component={Link} to='/follows' />
+            <Tab label='What followers say!' component={Link} to='/followed' />
             <Tab
               component={Link}
-              to='/momen-sherif'
+              to='/auth/sign-up'
               style={{ marginLeft: 'auto' }}
               icon={
                 <Box

@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 
 import Header from './layout/Header';
+import Registeration from './pages/Registeration';
 
 function App() {
   const { enqueueSnackbar } = useSnackbar();
@@ -23,9 +24,11 @@ function App() {
   return (
     <Fragment>
       <Header />
-      <Switch>
-        <Container></Container>
-      </Switch>
+      <Container>
+        <Switch>
+          <Route path='/auth' component={Registeration} />
+        </Switch>
+      </Container>
     </Fragment>
   );
 }
