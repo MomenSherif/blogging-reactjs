@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react';
+import { useSnackbar } from 'notistack';
+import { Switch, Route } from 'react-router-dom';
+import Container from '@material-ui/core/Container';
+
+import Header from './layout/Header';
 
 function App() {
+  const { enqueueSnackbar } = useSnackbar();
+
+  // setTimeout(() => {
+  //   enqueueSnackbar('Hello, Youtube', {
+  //     variant: 'success',
+  //     autoHideDuration: 2000,
+  //   });
+
+  //   enqueueSnackbar('Bye, Youtube', {
+  //     variant: 'error',
+  //     autoHideDuration: 2000,
+  //   });
+  // }, 200);
+
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <Header />
+      <Switch>
+        <Container></Container>
+      </Switch>
+    </Fragment>
   );
 }
 

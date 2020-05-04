@@ -1,17 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 import store from '../src/redux/store';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <BrowserRouter>
+    <Provider store={store}>
+      <SnackbarProvider
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <CssBaseline />
+        <App />
+      </SnackbarProvider>
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
