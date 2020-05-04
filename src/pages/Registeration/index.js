@@ -51,12 +51,8 @@ const Registeration = () => {
             </Tabs>
           </Paper>
 
-          <Route path='/auth/sign-up' exact>
-            <SignUpForm />
-          </Route>
-          <Route path='/auth/sign-in' exact>
-            <SignInForm />
-          </Route>
+          <Route path='/auth/sign-up' exact component={SignUpForm} />
+          <Route path='/auth/sign-in' exact component={SignInForm} />
         </Grid>
       </Grid>
     </Container>

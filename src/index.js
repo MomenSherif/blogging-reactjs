@@ -8,12 +8,12 @@ import { SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import store from '../src/redux/store';
-
+import store from './redux/store';
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
       <SnackbarProvider
+        maxSnack={5}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'right',

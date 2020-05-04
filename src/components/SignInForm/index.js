@@ -7,12 +7,20 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import man from '../../assets/signup-man.svg';
-
 import useStyles from './SignInFormStyle';
-const SignInForm = () => {
+import { logIn } from '../../redux/actions/authentication';
+import { connect } from 'react-redux';
+
+const SignInForm = ({ onLogin, history }) => {
   const classes = useStyles();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onLogin({ email: 'momensherif.2019@gmail.com', password: '123456' });
+    history.push('/');
+  };
+
   return (
-    <form noValidate style={{ width: '100%' }}>
+    <form onSubmit={handleSubmit} noValidate style={{ width: '100%' }}>
       <Typography variant='h3' color='primary' gutterBottom>
         Sign In
         <Box
@@ -50,6 +58,7 @@ const SignInForm = () => {
           color='primary'
           className={classes.submitBtn}
           fullWidth
+          type='submit'
         >
           Submit
         </Button>
@@ -58,4 +67,8 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+const mapDispatchToProps = (dispatch) => ({
+  onLogin: ({ email, password }) => dispatch(logIn({ email, password })),
+});
+
+export default connect(null, mapDispatchToProps)(SignInForm);
