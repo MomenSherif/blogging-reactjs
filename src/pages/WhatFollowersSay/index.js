@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 import BlogCard from '../../components/BlogCard';
 import BlogPageSkeleton from '../../Skeletons/BlogPageSkeleton';
 import Pagination from '@material-ui/lab/Pagination';
 
-import useStyles from './HomeStyle';
+import useStyles from './WhatFollowersSayStyle';
+import { fetchFollowersBlogs } from '../../redux/actions/blogs';
 
-import { fetchBlogs } from '../../redux/actions/blogs';
-
-const Home = ({ pages, blogs, onFetchBlogs }) => {
+const WhatFollowersSay = ({ pages, blogs, onFetchBlogs }) => {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -31,6 +31,11 @@ const Home = ({ pages, blogs, onFetchBlogs }) => {
   const classes = useStyles();
   return (
     <Container maxWidth='md' className={classes.container}>
+      {blogs.length === 0 && (
+        <Typography variant='h2' align='center'>
+          You're not following anyone! 🙄
+        </Typography>
+      )}
       {isLoading ? <BlogPageSkeleton /> : blogList}
       {pages > 1 && (
         <Pagination
@@ -51,7 +56,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchBlogs: (page) => dispatch(fetchBlogs({ page })),
+  onFetchBlogs: (page) => dispatch(fetchFollowersBlogs({ page })),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(WhatFollowersSay);

@@ -5,6 +5,7 @@ import { useSnackbar } from 'notistack';
 
 import Header from './layout/Header';
 import Home from './pages/Home';
+import WhatFollowersSay from './pages/WhatFollowersSay';
 import Registeration from './pages/Registeration';
 
 const App = ({ success, message, error, errors }) => {
@@ -33,6 +34,7 @@ const App = ({ success, message, error, errors }) => {
       <Header />
       <Switch>
         <Route path='/' exact component={Home} />
+        <Route path='/followed' component={WhatFollowersSay} />
         <Route path='/auth' component={Registeration} />
       </Switch>
     </Fragment>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -13,12 +13,18 @@ import zombieHead from '../assets/zombie-heade.svg';
 import man from '../assets/man.svg';
 import woman from '../assets/woman.svg';
 
-const Header = () => {
+const Header = ({ isAuthenticated, gender, slug }) => {
+  const location = useLocation();
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  // reset active to home page after login
+  useEffect(() => {
+    if (location.pathname === '/') setValue(0);
+  }, [location, setValue]);
 
   return (
     <AppBar position='sticky' color='default' elevation={3}>
@@ -47,15 +53,23 @@ const Header = () => {
             style={{ flex: 1 }}
           >
             <Tab label='Home' component={Link} to='/' />
-            <Tab label='What followers say!' component={Link} to='/followed' />
+            {isAuthenticated && (
+              <Tab
+                label='What followers say!'
+                component={Link}
+                to='/followed'
+              />
+            )}
             <Tab
               component={Link}
-              to='/auth/sign-up'
+              to={isAuthenticated ? `/users/${slug}` : '/auth/sign-up'}
               style={{ marginLeft: 'auto' }}
               icon={
                 <Box
                   component='img'
-                  src={man}
+                  src={
+                    !isAuthenticated ? man : gender === 'female' ? woman : man
+                  }
                   style={{ height: 50 }}
                   onClick={() => setValue(2)}
                 />
@@ -68,4 +82,9 @@ const Header = () => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  isAuthenticated: !!state.auth.token,
+  gender: state.auth.gender,
+  slug: state.auth.slug,
+});
+export default connect(mapStateToProps)(Header);
