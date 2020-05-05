@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
-import Container from '@material-ui/core/Container';
 import { useSnackbar } from 'notistack';
 
 import Header from './layout/Header';
+import Home from './pages/Home';
 import Registeration from './pages/Registeration';
 
 const App = ({ success, message, error, errors }) => {
@@ -31,11 +31,10 @@ const App = ({ success, message, error, errors }) => {
   return (
     <Fragment>
       <Header />
-      <Container>
-        <Switch>
-          <Route path='/auth' component={Registeration} />
-        </Switch>
-      </Container>
+      <Switch>
+        <Route path='/' exact component={Home} />
+        <Route path='/auth' component={Registeration} />
+      </Switch>
     </Fragment>
   );
 };

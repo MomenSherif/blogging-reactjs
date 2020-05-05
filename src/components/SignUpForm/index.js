@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -15,6 +16,7 @@ import { useForm } from 'react-hook-form';
 import { object, string } from 'yup';
 
 import man from '../../assets/signup-man.svg';
+import { signUp } from '../../redux/actions/authentication';
 import useStyles from './SignUpFormStyle';
 
 const schema = object().shape({
@@ -29,7 +31,7 @@ const schema = object().shape({
   gender: string().required('Gender is required!'),
 });
 
-const SignUpForm = () => {
+const SignUpForm = ({ onSignUp }) => {
   const [gender, setGender] = useState('');
   const handleChange = (e) => {
     setGender(e.target.value);
@@ -40,12 +42,10 @@ const SignUpForm = () => {
     mode: 'onBlur',
   });
 
-  const onSubmit = (data) => console.log(data);
-
   const classes = useStyles();
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSignUp)}
       noValidate
       style={{ width: '100%' }}
     >
@@ -143,6 +143,7 @@ const SignUpForm = () => {
           className={classes.submitBtn}
           type='submit'
           fullWidth
+          disabled={formState.isSubmitting}
         >
           Submit
         </Button>
@@ -151,4 +152,8 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+const mapDispatchToProps = (dispatch) => ({
+  onSignUp: (data) => dispatch(signUp(data)),
+});
+
+export default connect(null, mapDispatchToProps)(SignUpForm);

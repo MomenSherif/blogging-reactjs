@@ -19,4 +19,14 @@ const logIn = ({ email = '', password = '' } = {}) => {
   });
 };
 
-export { logIn };
+const signUp = (date = {}) => {
+  return catchErrors(async (dispatch) => {
+    const { token, user } = await axios.post(
+      'http://localhost:4000/users',
+      date
+    );
+    dispatch(setAuthDetails({ token, ...user }));
+  });
+};
+
+export { logIn, signUp };

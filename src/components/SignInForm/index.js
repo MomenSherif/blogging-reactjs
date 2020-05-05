@@ -23,23 +23,15 @@ const schema = object().shape({
     .min(6, 'Password must be at least 6 characters!'),
 });
 
-const SignInForm = ({ onLogin, history }) => {
+const SignInForm = ({ onLogin }) => {
   const { register, handleSubmit, errors, formState } = useForm({
     validationSchema: schema,
     mode: 'onBlur',
   });
-  const onSubmit = async (data) => {
-    await onLogin(data);
-    console.log('bye');
-  };
 
   const classes = useStyles();
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate
-      style={{ width: '100%' }}
-    >
+    <form onSubmit={handleSubmit(onLogin)} noValidate style={{ width: '100%' }}>
       <Typography variant='h3' color='primary' gutterBottom>
         Sign In
         <Box
@@ -84,6 +76,7 @@ const SignInForm = ({ onLogin, history }) => {
           className={classes.submitBtn}
           fullWidth
           type='submit'
+          disabled={formState.isSubmitting}
         >
           Submit
         </Button>

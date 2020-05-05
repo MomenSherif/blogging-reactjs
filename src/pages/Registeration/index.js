@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
@@ -15,16 +16,20 @@ import rick_morty from '../../assets/rick-morty.svg';
 import SignUpForm from '../../components/SignUpForm';
 import SignInForm from '../../components/SignInForm';
 
-const Registeration = () => {
+const Registeration = ({ user, history }) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  useEffect(() => {
+    if (user) history.push('/');
+  }, [user, history]);
+
   const classes = useStyles();
   return (
-    <Container maxWidth='xl' className={classes.container}>
+    <Container maxWidth='lg' className={classes.container}>
       <Grid container spacing={5}>
         <Grid item sm={12} md={6} className={classes.bg}>
           <Box display='block' component='img' src={rick_morty} />
@@ -59,4 +64,8 @@ const Registeration = () => {
   );
 };
 
-export default Registeration;
+const mapStateToProps = (state) => ({
+  user: state.auth._id,
+});
+
+export default connect(mapStateToProps)(Registeration);

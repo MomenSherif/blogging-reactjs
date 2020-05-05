@@ -4,6 +4,7 @@ const authenticationReducerDefaultValue = {
   email: '',
   firstName: '',
   lastName: '',
+  gender: '',
   slug: '',
   createdAt: null,
   updatedAt: null,

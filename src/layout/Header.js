@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <AppBar position='sticky' color='default' elevation={3}>
-      <Container>
+      <Container maxWidth='lg'>
         <Grid container alignItems='center'>
           <Typography
             variant='h5'
