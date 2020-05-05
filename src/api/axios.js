@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../redux/store';
-import { onLoading, onSuccess, onFailure } from '../redux/actions/status';
+import { onLoading, onSuccess } from '../redux/actions/status';
 
 // Add a request interceptor
 axios.interceptors.request.use(
@@ -23,12 +23,6 @@ axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    const { message } = error.response?.data;
-    if (message) store.dispatch(onFailure([message]));
-    else {
-      const errors = error.response?.data.map((err) => err.message);
-      store.dispatch(onFailure(errors));
-    }
     return Promise.reject(error);
   }
 );

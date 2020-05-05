@@ -2,10 +2,8 @@ import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
 import { useSnackbar } from 'notistack';
 
-import axios from './api/axios';
 import Header from './layout/Header';
 import Registeration from './pages/Registeration';
 
@@ -14,10 +12,19 @@ const App = ({ success, message, error, errors }) => {
 
   // Handle all snackbars messages from backed
   useEffect(() => {
-    if (success) enqueueSnackbar(message, { variant: 'success' });
+    if (success)
+      enqueueSnackbar(message, {
+        variant: 'success',
+        autoHideDuration: 2000,
+        preventDuplicate: true,
+      });
     else if (error)
       errors.forEach((err) =>
-        enqueueSnackbar(err, { variant: 'error', autoHideDuration: 2000 })
+        enqueueSnackbar(err, {
+          variant: 'error',
+          autoHideDuration: 2000,
+          preventDuplicate: true,
+        })
       );
   }, [success, message, error, errors, enqueueSnackbar]);
 
