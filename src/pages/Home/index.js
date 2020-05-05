@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import Container from '@material-ui/core/Container';
 import BlogCard from '../../components/BlogCard';
+import BlogPageSkeleton from '../../Skeletons/BlogPageSkeleton';
 import Pagination from '@material-ui/lab/Pagination';
 
 import useStyles from './HomeStyle';
@@ -10,20 +11,26 @@ import { fetchBlogs } from '../../redux/actions/blogs';
 
 const Home = ({ pages, blogs, onFetchBlogs }) => {
   const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+
   const handlePageChange = (event, value) => {
     setPage(value);
   };
-  console.log(blogs);
 
   useEffect(() => {
-    onFetchBlogs(page);
-  }, [page]);
+    (async () => {
+      setIsLoading(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      await onFetchBlogs(page);
+      setIsLoading(false);
+    })();
+  }, [page, onFetchBlogs]);
 
   const blogList = blogs.map((blog) => <BlogCard key={blog._id} {...blog} />);
   const classes = useStyles();
   return (
     <Container maxWidth='md' className={classes.container}>
-      {blogList}
+      {isLoading ? <BlogPageSkeleton /> : blogList}
       <Pagination
         count={pages}
         page={page}
