@@ -1,16 +1,22 @@
 import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link, useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+
+import Tooltip from '@material-ui/core/Tooltip';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 import Header from './layout/Header';
 import Home from './pages/Home';
+import BlogForm from './pages/BlogForm';
 import WhatFollowersSay from './pages/WhatFollowersSay';
 import Registeration from './pages/Registeration';
 import User from './pages/User';
 
 const App = ({ success, message, error, errors }) => {
   const { enqueueSnackbar } = useSnackbar();
+  const { pathname } = useLocation();
 
   // Handle all snackbars messages from backed
   useEffect(() => {
@@ -38,7 +44,22 @@ const App = ({ success, message, error, errors }) => {
         <Route path='/followed' component={WhatFollowersSay} />
         <Route path='/users/:slug' component={User} />
         <Route path='/auth' component={Registeration} />
+        <Route path='/blogs/add' component={BlogForm} />
       </Switch>
+
+      {pathname !== '/blogs/add' && (
+        <Tooltip title='Add Blog' aria-label='add blog'>
+          <Fab
+            color='primary'
+            aria-label='add blog'
+            style={{ position: 'fixed', right: 40, bottom: 40 }}
+            component={Link}
+            to='/blogs/add'
+          >
+            <AddIcon />
+          </Fab>
+        </Tooltip>
+      )}
     </Fragment>
   );
 };
