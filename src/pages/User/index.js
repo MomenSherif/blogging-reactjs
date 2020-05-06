@@ -18,7 +18,15 @@ import { fetchUser } from '../../api/helper';
 
 import useStyles from './UserStyle';
 
-const User = ({ pages, blogs, follows, onFetchBlogs, onFollowUser, match }) => {
+const User = ({
+  pages,
+  blogs,
+  follows,
+  authId,
+  onFetchBlogs,
+  onFollowUser,
+  match,
+}) => {
   const [isBlogsLoading, setIsBlogsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [isUserLoading, setIsUserLoading] = useState(true);
@@ -68,6 +76,7 @@ const User = ({ pages, blogs, follows, onFetchBlogs, onFollowUser, match }) => {
               user={user}
               followers={followers}
               isFollowing={follows?.includes(user._id)}
+              isFollowHidden={authId === user._id}
               handleUserFollow={handleUserFollow}
             />
           )}
@@ -102,6 +111,7 @@ const mapStateToProps = (state) => ({
   pages: state.blogs.pages,
   blogs: state.blogs.blogs,
   follows: state.auth.follows,
+  authId: state.auth._id,
 });
 
 const mapDispatchToProps = (dispatch, { match }) => ({

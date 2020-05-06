@@ -8,22 +8,30 @@ import man from '../../assets/man.svg';
 import woman from '../../assets/woman.svg';
 import useStyles from './UserInfoStyle';
 
-const UserInfo = ({ user, followers, isFollowing, handleUserFollow }) => {
+const UserInfo = ({
+  user,
+  followers,
+  isFollowing,
+  handleUserFollow,
+  isFollowHidden,
+}) => {
   const classes = useStyles();
   return (
-    <Grid container spacing={5}>
-      <Grid item>
+    <Grid container alignItems='center' spacing={5}>
+      <Grid item xs>
         <Grid item container alignItems='center'>
           <Typography variant='h4' className={classes.userName}>
             {`${user.firstName} ${user.lastName}`}
           </Typography>
-          <Chip
-            label={isFollowing ? 'Following' : 'Follow'}
-            variant={isFollowing ? 'default' : 'outlined'}
-            color='primary'
-            clickable
-            onClick={handleUserFollow}
-          />
+          {!isFollowHidden && (
+            <Chip
+              label={isFollowing ? 'Following' : 'Follow'}
+              variant={isFollowing ? 'default' : 'outlined'}
+              color='primary'
+              clickable
+              onClick={handleUserFollow}
+            />
+          )}
         </Grid>
         <Typography
           variant='body2'
@@ -55,6 +63,10 @@ const UserInfo = ({ user, followers, isFollowing, handleUserFollow }) => {
       </Grid>
     </Grid>
   );
+};
+
+UserInfo.defaultProps = {
+  isFollowHidden: false,
 };
 
 export default UserInfo;

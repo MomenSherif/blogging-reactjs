@@ -26,6 +26,7 @@ const BlogCard = ({ authorHidden, ...blog }) => {
         variant='outlined'
         size='small'
         color='primary'
+        clickable
         component={Link}
         className={classes.tag}
         to={`/blogs/search?tag=${tag}`}

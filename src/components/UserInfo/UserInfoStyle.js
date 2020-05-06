@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
   img: {
-    height: '100%',
+    height: '50%',
+    width: '100%',
   },
 }));
 
