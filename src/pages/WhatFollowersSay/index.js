@@ -25,7 +25,7 @@ const WhatFollowersSay = ({ pages, blogs, onFetchBlogs }) => {
       await onFetchBlogs(page);
       setIsLoading(false);
     })();
-  }, [page, onFetchBlogs]);
+  }, [page]);
 
   const blogList = blogs.map((blog) => <BlogCard key={blog._id} {...blog} />);
   const classes = useStyles();
@@ -33,10 +33,13 @@ const WhatFollowersSay = ({ pages, blogs, onFetchBlogs }) => {
     <Container maxWidth='md' className={classes.container}>
       {blogs.length === 0 && (
         <Typography variant='h2' align='center'>
-          You're not following anyone! 🙄
+          You're not following anyone!
+          <span role='img' aria-label='meh'>
+            🙄
+          </span>
         </Typography>
       )}
-      {isLoading ? <BlogPageSkeleton /> : blogList}
+      {isLoading && blogs.length !== 0 ? <BlogPageSkeleton /> : blogList}
       {pages > 1 && (
         <Pagination
           count={pages}

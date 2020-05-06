@@ -26,4 +26,13 @@ const fetchFollowersBlogs = ({ page = 1, pageSize = 7 } = {}) => {
   });
 };
 
-export { fetchBlogs, fetchFollowersBlogs };
+const fetchUserBlogs = ({ slug = '', page = 1, pageSize = 7 } = {}) => {
+  return catchErrors(async (dispatch) => {
+    const { blogs, pages } = await axios.get(
+      `${BACKEND_BASE_URL}/users/${slug}/blogs?page=${page}&pagesize=${pageSize}`
+    );
+    dispatch(setBlogs({ blogs, pages }));
+  });
+};
+
+export { fetchBlogs, fetchFollowersBlogs, fetchUserBlogs };

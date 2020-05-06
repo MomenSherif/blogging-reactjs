@@ -7,6 +7,7 @@ import Header from './layout/Header';
 import Home from './pages/Home';
 import WhatFollowersSay from './pages/WhatFollowersSay';
 import Registeration from './pages/Registeration';
+import User from './pages/User';
 
 const App = ({ success, message, error, errors }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -35,6 +36,7 @@ const App = ({ success, message, error, errors }) => {
       <Switch>
         <Route path='/' exact component={Home} />
         <Route path='/followed' component={WhatFollowersSay} />
+        <Route path='/users/:slug' component={User} />
         <Route path='/auth' component={Registeration} />
       </Switch>
     </Fragment>

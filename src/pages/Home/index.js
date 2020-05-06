@@ -25,13 +25,13 @@ const Home = ({ pages, blogs, onFetchBlogs }) => {
       await onFetchBlogs(page);
       setIsLoading(false);
     })();
-  }, [page, onFetchBlogs]);
+  }, [page]);
 
   const blogList = blogs.map((blog) => <BlogCard key={blog._id} {...blog} />);
   const classes = useStyles();
   return (
     <Container maxWidth='md' className={classes.container}>
-      {isLoading ? <BlogPageSkeleton /> : blogList}
+      {isLoading && blogs.length !== 0 ? <BlogPageSkeleton /> : blogList}
       {pages > 1 && (
         <Pagination
           count={pages}
