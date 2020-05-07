@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import Dante from 'Dante2';
 import Container from '@material-ui/core/Container';
@@ -11,17 +12,21 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import Box from '@material-ui/core/Box';
 import { DropzoneArea } from 'material-ui-dropzone';
 
-import { addBlog } from '../../redux/actions/blogs';
+import { addBlog, editBlog } from '../../redux/actions/blogs';
+import { BACKEND_BASE_URL } from '../../config';
 
 import useStyles from './BlogFormStyle';
 
-const BlogForm = ({ onAddBlog, history }) => {
-  const [body, setBody] = useState(null);
-  const [title, setTitle] = useState('');
-  const [tags, setTags] = useState([]);
+const BlogForm = ({ onAddBlog, onEditBlog, blog }) => {
+  const [body, setBody] = useState(blog ? JSON.parse(blog.body) : null);
+  const [title, setTitle] = useState(blog?.title || '');
+  const [tags, setTags] = useState(blog?.tags || []);
   const [file, setFile] = useState(null);
-  const [imgPreview, setImgPreview] = useState(null);
+  const [imgPreview, setImgPreview] = useState(
+    blog ? `${BACKEND_BASE_URL}${blog.photo}` : null
+  );
 
+  const history = useHistory();
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
@@ -45,18 +50,34 @@ const BlogForm = ({ onAddBlog, history }) => {
     setBody(content);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title || body.blocks.length === 1 || !file) return;
+    if (!title || body.blocks.length === 1) return;
 
-    const slug = await onAddBlog({
+    // Handle Edit Submit
+    if (blog)
+      return onEditBlog(blog._id, {
+        title,
+        body: JSON.stringify(body),
+        tags,
+        photo: file,
+      }).then((slug) => {
+        if (slug) history.replace(`/${slug}`);
+      });
+
+    // Handle Add Sumbit
+    if (!file) return;
+
+    onAddBlog({
       title,
       body: JSON.stringify(body),
       tags,
       photo: file,
+    }).then((slug) => {
+      if (slug) history.replace(`/${slug}`);
     });
-    history.replace(`/${slug}`);
   };
+
   const danteProps = {
     data_storage: {
       url: 'xxx',
@@ -77,7 +98,7 @@ const BlogForm = ({ onAddBlog, history }) => {
             color='primary'
             gutterBottom
           >
-            Add Blog
+            {`${blog ? 'Edit' : 'Add'} Blog`}
           </Typography>
           <TextField
             id='title'
@@ -109,7 +130,7 @@ const BlogForm = ({ onAddBlog, history }) => {
               maxWidth='100%'
               marginTop={3}
               src={imgPreview}
-              alt={file.name}
+              alt={file?.name}
             />
           )}
         </Box>
@@ -118,8 +139,9 @@ const BlogForm = ({ onAddBlog, history }) => {
             body_placeholder={
               "Blog content, Don't forget to highlight to style"
             }
-            connect={body}
             {...danteProps}
+            // content={JSON.parse(blog?.body)}
+            content={body}
             widgets={[]}
           />
         </Box>
@@ -160,18 +182,26 @@ const BlogForm = ({ onAddBlog, history }) => {
           color='primary'
           size='large'
           fullWidth
-          disabled={!title || body.blocks.length === 1 || !file}
+          disabled={!title || body?.blocks.length === 1 || !imgPreview}
           type='submit'
+          className={classes.submitBtn}
         >
-          Add
+          {blog ? 'Save' : 'Add'}
         </Button>
       </form>
     </Container>
   );
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  onAddBlog: (blog) => dispatch(addBlog(blog)),
+const mapStateToProps = (state, { match }) => ({
+  blog: match.params.slug
+    ? state.blogs.blogs.find((b) => b.slug === match.params.slug)
+    : null,
 });
 
-export default connect(null, mapDispatchToProps)(BlogForm);
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onAddBlog: (blog) => dispatch(addBlog(blog)),
+  onEditBlog: (id, updates) => dispatch(editBlog(id, updates)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlogForm);

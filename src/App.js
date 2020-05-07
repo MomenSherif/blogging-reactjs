@@ -45,6 +45,7 @@ const App = ({ success, message, error, errors, isAutherized }) => {
         <Route path='/users/:slug' component={User} />
         <Route path='/auth' component={Registeration} />
         <Route path='/blogs/add' component={BlogForm} />
+        <Route path='/blogs/edit/:slug' component={BlogForm} />
       </Switch>
 
       {isAutherized && pathname !== '/blogs/add' && (

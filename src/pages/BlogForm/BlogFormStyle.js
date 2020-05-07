@@ -7,6 +7,9 @@ const useStyles = makeStyles((theme) => ({
   dropZone: {
     minHeight: 'auto',
   },
+  submitBtn: {
+    marginBottom: theme.spacing(1),
+  },
 }));
 
 export default useStyles;

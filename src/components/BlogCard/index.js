@@ -21,8 +21,6 @@ const BlogCard = ({ authorHidden, ...blog }) => {
     .blocks.map((block) => (!block.text.trim() && '\n') || block.text)
     .join(' ');
 
-  console.log(content);
-
   const tagList = blog.tags
     .slice(-3)
     .map((tag, i) => (
@@ -42,7 +40,7 @@ const BlogCard = ({ authorHidden, ...blog }) => {
   return (
     <Box className={classes.card}>
       <Grid container spacing={3}>
-        <Grid item xs={6} component={Link} to={`/blogs/${blog.slug}`}>
+        <Grid item xs={6} component={Link} to={`/blogs/edit/${blog.slug}`}>
           <Box
             component='img'
             display='block'
@@ -88,10 +86,12 @@ const BlogCard = ({ authorHidden, ...blog }) => {
                 <BlogDate date={blog.createdAt} />
               </Grid>
 
-              <Box marginLeft='auto'>
-                {blog.tags.length - tagList.length > 0 && '📌...'}
-                {tagList}
-              </Box>
+              {blog.length && (
+                <Box marginLeft='auto'>
+                  {blog.tags.length - tagList.length > 0 && '📌...'}
+                  {tagList}
+                </Box>
+              )}
             </Grid>
           )}
         </Grid>

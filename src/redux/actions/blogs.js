@@ -53,4 +53,22 @@ const addBlog = ({ title = '', body = '', photo, tags = [] } = {}) => {
   });
 };
 
-export { fetchBlogs, fetchFollowersBlogs, fetchUserBlogs, addBlog };
+const editBlog = (id, updates) => {
+  return catchErrors(async (dispatch) => {
+    const keys = Object.keys(updates);
+    const fd = new FormData();
+    keys.forEach((key) => {
+      if (updates[key] !== undefined) fd.append(key, updates[key]);
+    });
+
+    const {
+      blog: { slug },
+    } = await axios.patch(`${BACKEND_BASE_URL}/blogs/${id}`, fd, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+
+    return slug;
+  });
+};
+
+export { fetchBlogs, fetchFollowersBlogs, fetchUserBlogs, addBlog, editBlog };
