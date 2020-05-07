@@ -62,7 +62,7 @@ const BlogForm = ({ onAddBlog, onEditBlog, blog }) => {
         tags,
         photo: file,
       }).then((slug) => {
-        if (slug) history.replace(`/${slug}`);
+        if (slug) history.replace(`/blogs/${slug}`);
       });
 
     // Handle Add Sumbit
@@ -74,7 +74,7 @@ const BlogForm = ({ onAddBlog, onEditBlog, blog }) => {
       tags,
       photo: file,
     }).then((slug) => {
-      if (slug) history.replace(`/${slug}`);
+      if (slug) history.replace(`/blogs/${slug}`);
     });
   };
 

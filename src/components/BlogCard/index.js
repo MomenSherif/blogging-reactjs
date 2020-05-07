@@ -40,7 +40,7 @@ const BlogCard = ({ authorHidden, ...blog }) => {
   return (
     <Box className={classes.card}>
       <Grid container spacing={3}>
-        <Grid item xs={6} component={Link} to={`/blogs/edit/${blog.slug}`}>
+        <Grid item xs={6} component={Link} to={`/blogs/${blog.slug}`}>
           <Box
             component='img'
             display='block'
@@ -67,7 +67,9 @@ const BlogCard = ({ authorHidden, ...blog }) => {
             variant='subtitle2'
             className={classes.wrapText}
           >
-            {`${content.substr(0, 300)} ${content.length > 300 && '......'}`}
+            {`${content.substr(0, 300)} ${
+              content.length > 300 ? '......' : ''
+            }`}
           </Typography>
 
           {authorHidden ? (

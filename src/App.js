@@ -10,6 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Header from './layout/Header';
 import Home from './pages/Home';
 import BlogForm from './pages/BlogForm';
+import Blog from './pages/Blog';
 import WhatFollowersSay from './pages/WhatFollowersSay';
 import Registeration from './pages/Registeration';
 import User from './pages/User';
@@ -46,6 +47,7 @@ const App = ({ success, message, error, errors, isAutherized }) => {
         <Route path='/auth' component={Registeration} />
         <Route path='/blogs/add' component={BlogForm} />
         <Route path='/blogs/edit/:slug' component={BlogForm} />
+        <Route path='/blogs/:slug' component={Blog} />
       </Switch>
 
       {isAutherized && pathname !== '/blogs/add' && (

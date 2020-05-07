@@ -58,6 +58,9 @@ const editBlog = (id, updates) => {
     const keys = Object.keys(updates);
     const fd = new FormData();
     keys.forEach((key) => {
+      if (Array.isArray(updates[key]))
+        return fd.append(key, JSON.stringify(updates[key]));
+
       if (updates[key] !== undefined) fd.append(key, updates[key]);
     });
 

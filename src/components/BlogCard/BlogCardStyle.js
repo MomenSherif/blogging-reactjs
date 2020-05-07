@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
   },
   tag: {
     marginLeft: 6,
-    cursor: 'pointer',
   },
   blogTitle: {
     textDecoration: 'none',
