@@ -34,7 +34,7 @@ const Header = ({ isAuthenticated, gender, slug }) => {
             variant='h5'
             component={Link}
             to='/'
-            style={{ textDecoration: 'none' }}
+            style={{ textDecoration: 'none', fontWeight: 'bold' }}
             onClick={() => setValue(0)}
           >
             BlogZone

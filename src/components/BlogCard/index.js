@@ -85,15 +85,12 @@ const BlogCard = ({ authorHidden, ...blog }) => {
                 <Typography variant='body1'>{`${blog.author.firstName} ${blog.author.lastName}`}</Typography>
                 <BlogDate date={blog.createdAt} />
               </Grid>
-
-              {blog.length && (
-                <Box marginLeft='auto'>
-                  {blog.tags.length - tagList.length > 0 && '📌...'}
-                  {tagList}
-                </Box>
-              )}
             </Grid>
           )}
+          <Box marginLeft='auto'>
+            {blog.tags.length - tagList.length > 0 && '📌...'}
+            {tagList}
+          </Box>
         </Grid>
       </Grid>
     </Box>
