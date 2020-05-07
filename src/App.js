@@ -14,7 +14,7 @@ import WhatFollowersSay from './pages/WhatFollowersSay';
 import Registeration from './pages/Registeration';
 import User from './pages/User';
 
-const App = ({ success, message, error, errors }) => {
+const App = ({ success, message, error, errors, isAutherized }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { pathname } = useLocation();
 
@@ -47,7 +47,7 @@ const App = ({ success, message, error, errors }) => {
         <Route path='/blogs/add' component={BlogForm} />
       </Switch>
 
-      {pathname !== '/blogs/add' && (
+      {isAutherized && pathname !== '/blogs/add' && (
         <Tooltip title='Add Blog' aria-label='add blog'>
           <Fab
             color='primary'
@@ -69,6 +69,7 @@ const mapStateToProps = (state) => ({
   message: state.status.message,
   error: state.status.error,
   errors: state.status.errors,
+  isAutherized: !!state.auth.token,
 });
 
 export default connect(mapStateToProps)(App);

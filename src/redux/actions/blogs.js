@@ -35,4 +35,23 @@ const fetchUserBlogs = ({ slug = '', page = 1, pageSize = 7 } = {}) => {
   });
 };
 
-export { fetchBlogs, fetchFollowersBlogs, fetchUserBlogs };
+const addBlog = ({ title = '', body = '', photo, tags = [] } = {}) => {
+  return catchErrors(async (dispatch) => {
+    const fd = new FormData();
+    fd.append('title', title);
+    fd.append('body', body);
+    fd.append('tags', JSON.stringify(tags));
+    fd.append('photo', photo);
+
+    const {
+      blog: { slug },
+      message,
+    } = await axios.post(`${BACKEND_BASE_URL}/blogs`, fd, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+
+    return slug;
+  });
+};
+
+export { fetchBlogs, fetchFollowersBlogs, fetchUserBlogs, addBlog };

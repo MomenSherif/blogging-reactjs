@@ -4,6 +4,9 @@ const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.spacing(5),
   },
+  dropZone: {
+    minHeight: 'auto',
+  },
 }));
 
 export default useStyles;

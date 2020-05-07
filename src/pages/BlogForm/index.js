@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import Container from '@material-ui/core/Container';
+import { connect } from 'react-redux';
 
 import Dante from 'Dante2';
+import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Chip from '@material-ui/core/Chip';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Box from '@material-ui/core/Box';
+import { DropzoneArea } from 'material-ui-dropzone';
+
+import { addBlog } from '../../redux/actions/blogs';
 
 import useStyles from './BlogFormStyle';
-import { Box } from '@material-ui/core';
 
-const BlogForm = () => {
-  const [content, setContent] = useState(null);
+const BlogForm = ({ onAddBlog, history }) => {
+  const [body, setBody] = useState(null);
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState([]);
+  const [file, setFile] = useState(null);
+  const [imgPreview, setImgPreview] = useState(null);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -24,12 +30,32 @@ const BlogForm = () => {
     setTags((tags) => (newTags.length > 6 ? tags : newTags));
   };
 
-  const saveHandler = (editorContext, content) => {
-    setContent(content);
+  const handleFileChange = (files) => {
+    const file = files[0];
+    setFile(file);
+    const reader = new FileReader();
+    if (file) reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      setImgPreview(reader.result);
+    };
   };
 
-  const handleSubmit = (e) => {
+  const saveHandler = (editorContext, content) => {
+    setBody(content);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!title || body.blocks.length === 1 || !file) return;
+
+    const slug = await onAddBlog({
+      title,
+      body: JSON.stringify(body),
+      tags,
+      photo: file,
+    });
+    history.replace(`/${slug}`);
   };
   const danteProps = {
     data_storage: {
@@ -67,10 +93,32 @@ const BlogForm = () => {
           />
         </Box>
         <Box marginBottom={5}>
+          <DropzoneArea
+            onChange={handleFileChange}
+            acceptedFiles={['image/*']}
+            filesLimit={1}
+            dropzoneText='Drag & Drop image here or click'
+            maxFileSize={1000 * 1000}
+            showPreviewsInDropzone={false}
+            dropzoneClass={classes.dropZone}
+          />
+
+          {imgPreview && (
+            <Box
+              component='img'
+              maxWidth='100%'
+              marginTop={3}
+              src={imgPreview}
+              alt={file.name}
+            />
+          )}
+        </Box>
+        <Box marginBottom={5}>
           <Dante
             body_placeholder={
               "Blog content, Don't forget to highlight to style"
             }
+            connect={body}
             {...danteProps}
             widgets={[]}
           />
@@ -112,7 +160,7 @@ const BlogForm = () => {
           color='primary'
           size='large'
           fullWidth
-          disabled={!title || content.blocks.length === 1}
+          disabled={!title || body.blocks.length === 1 || !file}
           type='submit'
         >
           Add
@@ -122,4 +170,8 @@ const BlogForm = () => {
   );
 };
 
-export default BlogForm;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onAddBlog: (blog) => dispatch(addBlog(blog)),
+});
+
+export default connect(null, mapDispatchToProps)(BlogForm);
