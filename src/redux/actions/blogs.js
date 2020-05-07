@@ -45,7 +45,6 @@ const addBlog = ({ title = '', body = '', photo, tags = [] } = {}) => {
 
     const {
       blog: { slug },
-      message,
     } = await axios.post(`${BACKEND_BASE_URL}/blogs`, fd, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });

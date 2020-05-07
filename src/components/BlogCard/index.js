@@ -17,6 +17,12 @@ import { BACKEND_BASE_URL } from '../../config';
 const BlogCard = ({ authorHidden, ...blog }) => {
   const classes = useStyles();
 
+  const content = JSON.parse(blog.body)
+    .blocks.map((block) => (!block.text.trim() && '\n') || block.text)
+    .join(' ');
+
+  console.log(content);
+
   const tagList = blog.tags
     .slice(-3)
     .map((tag, i) => (
@@ -63,7 +69,7 @@ const BlogCard = ({ authorHidden, ...blog }) => {
             variant='subtitle2'
             className={classes.wrapText}
           >
-            {blog.body}
+            {`${content.substr(0, 300)} ${content.length > 300 && '......'}`}
           </Typography>
 
           {authorHidden ? (
