@@ -14,6 +14,7 @@ import Blog from './pages/Blog';
 import WhatFollowersSay from './pages/WhatFollowersSay';
 import Registeration from './pages/Registeration';
 import User from './pages/User';
+import Search from './pages/Search';
 
 const App = ({ success, message, error, errors, isAutherized }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -47,6 +48,7 @@ const App = ({ success, message, error, errors, isAutherized }) => {
         <Route path='/auth' component={Registeration} />
         <Route path='/blogs/add' component={BlogForm} />
         <Route path='/blogs/edit/:slug' component={BlogForm} />
+        <Route path='/blogs/search' component={Search} />
         <Route path='/blogs/:slug' component={Blog} />
       </Switch>
 

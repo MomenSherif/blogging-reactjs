@@ -13,8 +13,9 @@ import Typography from '@material-ui/core/Typography';
 
 import Dante from 'Dante2';
 import moment from 'moment';
+
 import { BACKEND_BASE_URL } from '../../config';
-import axios from '../../api/axios';
+import { fetchBlog } from '../../api/helper';
 import useStyles from './BlogStyle';
 
 const Blog = ({ authId }) => {
@@ -37,14 +38,13 @@ const Blog = ({ authId }) => {
   ));
 
   useEffect(() => {
-    axios
-      .get(`${BACKEND_BASE_URL}/blogs/${slug}`)
+    fetchBlog(slug)
       .then((blog) => setBlog(blog))
       .catch((e) => {
         //not found page
         console.log(e);
       });
-  }, []);
+  }, [slug]);
 
   return (
     <Box>
@@ -96,7 +96,7 @@ const Blog = ({ authId }) => {
             }}
           ></Box>
           <Container maxWidth='md' className={classes.content}>
-            <Dante read_only={true} content={JSON.parse(blog?.body)} />
+            <Dante read_only={true} content={JSON.parse(blog.body)} />
             {tagList}
           </Container>
         </Fragment>
@@ -105,7 +105,7 @@ const Blog = ({ authId }) => {
   );
 };
 
-const mapStateToProps = (state, { match }) => ({
+const mapStateToProps = (state) => ({
   authId: state.auth._id,
 });
 

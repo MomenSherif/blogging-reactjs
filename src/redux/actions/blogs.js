@@ -35,6 +35,19 @@ const fetchUserBlogs = ({ slug = '', page = 1, pageSize = 7 } = {}) => {
   });
 };
 
+const fetchSearchedBlogs = ({ author, title, tag } = {}) => {
+  return catchErrors(async (dispatch) => {
+    const blogs = await axios.get(`${BACKEND_BASE_URL}/blogs/search`, {
+      params: {
+        author,
+        title,
+        tag,
+      },
+    });
+    dispatch(setBlogs({ blogs }));
+  });
+};
+
 const addBlog = ({ title = '', body = '', photo, tags = [] } = {}) => {
   return catchErrors(async (dispatch) => {
     const fd = new FormData();
@@ -74,4 +87,11 @@ const editBlog = (id, updates) => {
   });
 };
 
-export { fetchBlogs, fetchFollowersBlogs, fetchUserBlogs, addBlog, editBlog };
+export {
+  fetchBlogs,
+  fetchFollowersBlogs,
+  fetchUserBlogs,
+  addBlog,
+  editBlog,
+  fetchSearchedBlogs,
+};

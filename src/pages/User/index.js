@@ -12,11 +12,12 @@ import UserInfoSkeleton from '../../Skeletons/UserInfoSkeleton';
 
 import UserInfo from '../../components/UserInfo';
 
+import { fetchUser } from '../../api/helper';
 import { followUser } from '../../redux/actions/authentication';
 import { fetchUserBlogs } from '../../redux/actions/blogs';
-import { fetchUser } from '../../api/helper';
 
 import useStyles from './UserStyle';
+import { useParams } from 'react-router-dom';
 
 const User = ({
   pages,
@@ -25,13 +26,13 @@ const User = ({
   authId,
   onFetchBlogs,
   onFollowUser,
-  match,
 }) => {
   const [isBlogsLoading, setIsBlogsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [isUserLoading, setIsUserLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [followers, setFollwers] = useState(0);
+  const { slug } = useParams();
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -44,12 +45,13 @@ const User = ({
   };
   // Fetch User Data
   useEffect(() => {
-    fetchUser(match.params.slug).then(({ user, followers }) => {
+    setIsUserLoading(true);
+    fetchUser(slug).then(({ user, followers }) => {
       setUser(user);
       setFollwers(followers);
       setIsUserLoading(false);
     });
-  }, [match.params.slug]);
+  }, [slug]);
 
   // Fetch BLogs
   useEffect(() => {
@@ -59,7 +61,7 @@ const User = ({
       await onFetchBlogs(page);
       setIsBlogsLoading(false);
     })();
-  }, [page]);
+  }, [page, slug]);
 
   const blogList = blogs.map((blog) => (
     <BlogCard key={blog._id} {...blog} authorHidden={true} />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -8,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import Tooltip from '@material-ui/core/Tooltip';
+import SearchIcon from '@material-ui/icons/Search';
 
 import zombieHead from '../assets/zombie-heade.svg';
 import man from '../assets/man.svg';
@@ -24,7 +27,7 @@ const Header = ({ isAuthenticated, gender, slug }) => {
   // reset active to home page after login
   useEffect(() => {
     if (location.pathname === '/') setValue(0);
-  }, [location, setValue]);
+  }, [location.pathname]);
 
   return (
     <AppBar position='sticky' color='default' elevation={3}>
@@ -60,10 +63,18 @@ const Header = ({ isAuthenticated, gender, slug }) => {
                 to='/followed'
               />
             )}
+
+            <Tooltip title='Looking for something?' arrow aria-label='search'>
+              <Tab
+                component={Link}
+                to='/blogs/search'
+                icon={<SearchIcon />}
+                style={{ marginLeft: 'auto' }}
+              />
+            </Tooltip>
             <Tab
               component={Link}
               to={isAuthenticated ? `/users/${slug}` : '/auth/sign-up'}
-              style={{ marginLeft: 'auto' }}
               icon={
                 <Box
                   component='img'
