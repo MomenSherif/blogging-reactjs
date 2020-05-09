@@ -41,4 +41,9 @@ const editBlog = (id, updates) => {
   });
 };
 
-export { addBlog, editBlog };
+const deleteBlog = (id) => {
+  return catchErrors(async (dispatch) => {
+    await axios.delete(`${BACKEND_BASE_URL}/blogs/${id}`);
+  });
+};
+export { addBlog, editBlog, deleteBlog };

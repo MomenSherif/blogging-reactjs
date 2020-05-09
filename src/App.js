@@ -7,8 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-import PrivateRoute from './customRoutes/PrivateRoute';
-
+import PrivateRoute from './router_helpers/PrivateRoute';
 import WhatFollowersSay from './pages/WhatFollowersSay';
 import Registeration from './pages/Registeration';
 import BlogForm from './pages/BlogForm';

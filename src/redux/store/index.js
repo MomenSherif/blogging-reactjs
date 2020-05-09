@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import rootRucer from '../reducers';
 
 const composeEnhancers =
-  process.env.NODE_ENV == 'development'
+  process.env.NODE_ENV === 'development'
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;
 

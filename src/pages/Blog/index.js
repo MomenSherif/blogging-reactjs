@@ -8,13 +8,14 @@ import Tooltip from '@material-ui/core/Tooltip';
 import EditIcon from '@material-ui/icons/Edit';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
+import Chip from '@material-ui/core/Chip';
 import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
-import Chip from '@material-ui/core/Chip';
 
 import Dante from 'Dante2';
 import moment from 'moment';
 
+import DeleteBlogDialog from '../../components/DeleteBlogDialog';
 import BlogSkeleton from '../../Skeletons/BlogSkeleton';
 import { BACKEND_BASE_URL } from '../../config';
 import { fetchBlog } from '../../api/helper';
@@ -62,16 +63,20 @@ const Blog = ({ authId }) => {
                 {blog.title}
               </Typography>
               {authId === blog.author._id && (
-                <Tooltip title='Edit Blog!' aria-label='edit blog' arrow>
-                  <Fab
-                    color='secondary'
-                    aria-label='edit'
-                    component={Link}
-                    to={`/blogs/edit/${blog.slug}`}
-                  >
-                    <EditIcon />
-                  </Fab>
-                </Tooltip>
+                <Grid item>
+                  <Tooltip title='Edit Blog!' aria-label='edit blog' arrow>
+                    <Fab
+                      color='secondary'
+                      aria-label='edit'
+                      component={Link}
+                      to={`/blogs/edit/${blog.slug}`}
+                      size='medium'
+                    >
+                      <EditIcon />
+                    </Fab>
+                  </Tooltip>
+                  <DeleteBlogDialog _id={blog._id} title={blog.title} />
+                </Grid>
               )}
             </Grid>
             <Grid container spacing={1} alignItems='center'>

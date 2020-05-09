@@ -4,11 +4,13 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { BrowserRouter } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 
+import ScrollToTop from './router_helpers/ScrollToTop';
 import store from './redux/store';
+
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
@@ -20,6 +22,7 @@ ReactDOM.render(
         }}
       >
         <CssBaseline />
+        <ScrollToTop />
         <App />
       </SnackbarProvider>
     </Provider>
