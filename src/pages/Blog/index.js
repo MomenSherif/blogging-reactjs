@@ -17,6 +17,7 @@ import moment from 'moment';
 import { BACKEND_BASE_URL } from '../../config';
 import { fetchBlog } from '../../api/helper';
 import useStyles from './BlogStyle';
+import BlogSkeleton from '../../Skeletons/BlogSkeleton';
 
 const Blog = ({ authId }) => {
   const [blog, setBlog] = useState(null);
@@ -49,7 +50,9 @@ const Blog = ({ authId }) => {
   return (
     <Box>
       {!blog ? (
-        <div>Loading...</div>
+        <Container maxWidth='md' className={classes.header}>
+          <BlogSkeleton />
+        </Container>
       ) : (
         <Fragment>
           <Container maxWidth='md' className={classes.header}>

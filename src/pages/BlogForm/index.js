@@ -33,6 +33,8 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
     imgPreview: null,
   }));
 
+  const { body, _id, imgPreview, title, tags, file, loading } = formState;
+
   useEffect(() => {
     if (isEditMode)
       fetchBlog(slug)
@@ -60,25 +62,21 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
   };
 
   const handleTagsChange = (event, newTags) => {
-    const tags = newTags.length > 6 ? tags : newTags;
     setFormState((prevState) => ({
       ...prevState,
-      tags,
+      tags: newTags.length > 6 ? tags : newTags,
     }));
   };
 
   const handleFileChange = (files) => {
     const file = files[0];
-    setFormState((prevState) => ({
-      ...prevState,
-      file,
-    }));
     const reader = new FileReader();
     if (file) reader.readAsDataURL(file);
 
     reader.onloadend = () => {
       setFormState((prevState) => ({
         ...prevState,
+        file,
         imgPreview: reader.result,
       }));
     };
@@ -121,7 +119,6 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
     }));
   };
 
-  const { body, _id, imgPreview, title, tags, file, loading } = formState;
   const classes = useStyles();
 
   return (
@@ -151,7 +148,7 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
               inputProps={{ style: { fontSize: 52, fontWeight: 'bold' } }}
             />
           </Box>
-          <Box marginBottom={5}>
+          <Box marginBottom={5} textAlign='center'>
             <DropzoneArea
               onChange={handleFileChange}
               acceptedFiles={['image/*']}
