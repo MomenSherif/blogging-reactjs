@@ -16,7 +16,7 @@ import Registeration from './pages/Registeration';
 import User from './pages/User';
 import Search from './pages/Search';
 
-const App = ({ success, message, error, errors, isAutherized }) => {
+const App = ({ success, message, error, errors, isAuthenticated }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { pathname } = useLocation();
 
@@ -36,7 +36,7 @@ const App = ({ success, message, error, errors, isAutherized }) => {
           preventDuplicate: true,
         })
       );
-  }, [success, message, error, errors, enqueueSnackbar]);
+  }, [success, message, error, errors]);
 
   return (
     <Fragment>
@@ -52,8 +52,9 @@ const App = ({ success, message, error, errors, isAutherized }) => {
         <Route path='/blogs/:slug' component={Blog} />
       </Switch>
 
-      {isAutherized && pathname !== '/blogs/add' && (
-        <Tooltip title='Add Blog' aria-label='add blog'>
+      {/* Hide if not Authenticated or in add || edit page */}
+      {isAuthenticated && !pathname.match(/blogs\/(add|edit)/) && (
+        <Tooltip title='Add Blog' aria-label='add blog' arrow>
           <Fab
             color='primary'
             aria-label='add blog'
@@ -74,7 +75,7 @@ const mapStateToProps = (state) => ({
   message: state.status.message,
   error: state.status.error,
   errors: state.status.errors,
-  isAutherized: !!state.auth.token,
+  isAuthenticated: !!state.auth.token,
 });
 
 export default connect(mapStateToProps)(App);

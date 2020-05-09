@@ -13,25 +13,18 @@ import UserInfoSkeleton from '../../Skeletons/UserInfoSkeleton';
 import UserInfo from '../../components/UserInfo';
 
 import { fetchUser } from '../../api/helper';
+import { fetchUserBlogs } from '../../api/helper';
 import { followUser } from '../../redux/actions/authentication';
-import { fetchUserBlogs } from '../../redux/actions/blogs';
 
 import useStyles from './UserStyle';
 import { useParams } from 'react-router-dom';
 
-const User = ({
-  pages,
-  blogs,
-  follows,
-  authId,
-  onFetchBlogs,
-  onFollowUser,
-}) => {
+const User = ({ follows, authId, onFollowUser }) => {
+  const [blogState, setBlogState] = useState({ blogs: [], pages: 1 });
   const [isBlogsLoading, setIsBlogsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [isUserLoading, setIsUserLoading] = useState(true);
-  const [user, setUser] = useState(null);
-  const [followers, setFollwers] = useState(0);
+  const [userState, setUserState] = useState({ user: null, followers: 0 });
   const { slug } = useParams();
 
   const handlePageChange = (event, value) => {
@@ -39,33 +32,40 @@ const User = ({
   };
 
   const handleUserFollow = async () => {
-    await onFollowUser(user._id);
-    const isFollowing = follows.includes(user._id);
-    setFollwers((followers) => (isFollowing ? followers - 1 : followers + 1));
+    await onFollowUser(userState.user._id);
+    const isFollowing = follows.includes(userState.user._id);
+    setUserState((prevState) => ({
+      ...prevState,
+      followers: isFollowing ? followers - 1 : followers + 1,
+    }));
   };
+
   // Fetch User Data
   useEffect(() => {
     setIsUserLoading(true);
     fetchUser(slug).then(({ user, followers }) => {
-      setUser(user);
-      setFollwers(followers);
+      setUserState({ user, followers });
       setIsUserLoading(false);
     });
   }, [slug]);
 
   // Fetch BLogs
   useEffect(() => {
-    (async () => {
-      setIsBlogsLoading(true);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      await onFetchBlogs(page);
+    setIsBlogsLoading(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    fetchUserBlogs({ slug, page }).then(({ blogs, pages }) => {
+      setBlogState({ blogs, pages });
       setIsBlogsLoading(false);
-    })();
+    });
   }, [page, slug]);
+
+  const { user, followers } = userState;
+  const { blogs, pages } = blogState;
 
   const blogList = blogs.map((blog) => (
     <BlogCard key={blog._id} {...blog} authorHidden={true} />
   ));
+
   const classes = useStyles();
   return (
     <Container maxWidth='md' className={classes.container}>
@@ -110,15 +110,11 @@ const User = ({
 };
 
 const mapStateToProps = (state) => ({
-  pages: state.blogs.pages,
-  blogs: state.blogs.blogs,
   follows: state.auth.follows,
   authId: state.auth._id,
 });
 
-const mapDispatchToProps = (dispatch, { match }) => ({
-  onFetchBlogs: (page) =>
-    dispatch(fetchUserBlogs({ slug: match.params.slug, page })),
+const mapDispatchToProps = (dispatch) => ({
   onFollowUser: (id) => dispatch(followUser(id)),
 });
 
