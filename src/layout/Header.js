@@ -37,6 +37,7 @@ const Header = ({ isAuthenticated, gender, slug }) => {
             variant='h5'
             component={Link}
             to='/'
+            color='primary'
             style={{ textDecoration: 'none', fontWeight: 'bold' }}
             onClick={() => setValue(0)}
           >

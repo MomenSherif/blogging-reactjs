@@ -6,9 +6,14 @@ const useStyles = makeStyles((theme) => ({
   },
   dropZone: {
     minHeight: 'auto',
+    backgroundColor: 'transparent',
   },
   submitBtn: {
     marginBottom: theme.spacing(1),
+  },
+  test: {
+    backgroundColor: 'red !important',
+    color: 'blue',
   },
 }));
 

@@ -24,7 +24,6 @@ import useStyles from './BlogStyle';
 const Blog = ({ authId }) => {
   const [blog, setBlog] = useState(null);
   const { slug } = useParams();
-
   const classes = useStyles();
 
   const tagList = blog?.tags.map((tag, i) => (

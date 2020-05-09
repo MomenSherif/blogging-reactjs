@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import { useTheme } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Typography from '@material-ui/core/Typography';
@@ -21,6 +22,11 @@ import useStyles from './BlogFormStyle';
 const BlogForm = ({ onAddBlog, onEditBlog }) => {
   const { slug } = useParams();
   const history = useHistory();
+  const {
+    palette: { type },
+  } = useTheme();
+
+  console.log(type);
 
   const isEditMode = slug ? true : false;
   const [formState, setFormState] = useState(() => ({
@@ -88,7 +94,7 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
 
     // Handle Edit Submit
     if (isEditMode)
-      return onEditBlog(formState._id, {
+      return onEditBlog(_id, {
         title,
         body: JSON.stringify(body),
         tags,
@@ -174,6 +180,7 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
               }
               content={body}
               widgets={[]}
+              classes={classes.test}
               onChange={handleChange}
             />
           </Box>

@@ -56,7 +56,12 @@ const DeleteBlogDialog = ({ _id, title, onDelete }) => {
         maxWidth='xs'
         fullWidth
       >
-        <DialogTitle id='alert-dialog-title'>Confirm Delete ☝</DialogTitle>
+        <DialogTitle id='alert-dialog-title'>
+          Confirm Delete{' '}
+          <span role='img' aria-label='make sure!'>
+            ☝
+          </span>
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description'>
             Delete Blog "{title}"
