@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+
 import BlogCardSkeleton from '../BlogCardSkeleton';
 
 const BlogPageSkeleton = () => {

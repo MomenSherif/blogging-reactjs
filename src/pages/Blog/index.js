@@ -2,22 +2,23 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
-import EditIcon from '@material-ui/icons/Edit';
-import Chip from '@material-ui/core/Chip';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import Tooltip from '@material-ui/core/Tooltip';
+import EditIcon from '@material-ui/icons/Edit';
+import Avatar from '@material-ui/core/Avatar';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Fab from '@material-ui/core/Fab';
+import Chip from '@material-ui/core/Chip';
 
 import Dante from 'Dante2';
 import moment from 'moment';
 
+import BlogSkeleton from '../../Skeletons/BlogSkeleton';
 import { BACKEND_BASE_URL } from '../../config';
 import { fetchBlog } from '../../api/helper';
 import useStyles from './BlogStyle';
-import BlogSkeleton from '../../Skeletons/BlogSkeleton';
 
 const Blog = ({ authId }) => {
   const [blog, setBlog] = useState(null);
@@ -61,14 +62,16 @@ const Blog = ({ authId }) => {
                 {blog.title}
               </Typography>
               {authId === blog.author._id && (
-                <Fab
-                  color='secondary'
-                  aria-label='edit'
-                  component={Link}
-                  to={`/blogs/edit/${blog.slug}`}
-                >
-                  <EditIcon />
-                </Fab>
+                <Tooltip title='Edit Blog!' aria-label='edit blog' arrow>
+                  <Fab
+                    color='secondary'
+                    aria-label='edit'
+                    component={Link}
+                    to={`/blogs/edit/${blog.slug}`}
+                  >
+                    <EditIcon />
+                  </Fab>
+                </Tooltip>
               )}
             </Grid>
             <Grid container spacing={1} alignItems='center'>

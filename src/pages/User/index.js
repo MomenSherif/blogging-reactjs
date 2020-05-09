@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Container from '@material-ui/core/Container';
-import { Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import BlogCard from '../../components/BlogCard';
-import BlogPageSkeleton from '../../Skeletons/BlogPageSkeleton';
 import Pagination from '@material-ui/lab/Pagination';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 
 import UserInfoSkeleton from '../../Skeletons/UserInfoSkeleton';
-
+import BlogPageSkeleton from '../../Skeletons/BlogPageSkeleton';
+import BlogCard from '../../components/BlogCard';
 import UserInfo from '../../components/UserInfo';
 
-import { fetchUser } from '../../api/helper';
-import { fetchUserBlogs } from '../../api/helper';
 import { followUser } from '../../redux/actions/authentication';
-
+import { fetchUserBlogs, fetchUser } from '../../api/helper';
 import useStyles from './UserStyle';
-import { useParams } from 'react-router-dom';
 
 const User = ({ follows, authId, onFollowUser }) => {
   const [blogState, setBlogState] = useState({ blogs: [], pages: 1 });
@@ -84,18 +81,20 @@ const User = ({ follows, authId, onFollowUser }) => {
           )}
         </Grid>
       </Grid>
+
       {isBlogsLoading ? (
         <BlogPageSkeleton />
-      ) : blogs.length > 0 ? (
-        blogList
-      ) : (
+      ) : blogs.length === 0 ? (
         <Typography variant='h2' align='center'>
           No blogs!
           <span role='img' aria-label='meh'>
             🙄
           </span>
         </Typography>
+      ) : (
+        blogList
       )}
+
       {pages > 1 && (
         <Pagination
           count={pages}

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
+import Pagination from '@material-ui/lab/Pagination';
 import Container from '@material-ui/core/Container';
 import BlogCard from '../../components/BlogCard';
-import BlogPageSkeleton from '../../Skeletons/BlogPageSkeleton';
-import Pagination from '@material-ui/lab/Pagination';
 
+import BlogPageSkeleton from '../../Skeletons/BlogPageSkeleton';
 import { fetchBlogs } from '../../api/helper';
 import useStyles from './HomeStyle';
 

@@ -1,18 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 
 import moment from 'moment';
 
-import man from '../../assets/man.svg';
-import woman from '../../assets/woman.svg';
-import useStyles from './BlogCardStyle';
-
 import { BACKEND_BASE_URL } from '../../config';
+import woman from '../../assets/woman.svg';
+import man from '../../assets/man.svg';
+import useStyles from './BlogCardStyle';
 
 const BlogCard = ({ authorHidden, ...blog }) => {
   const classes = useStyles();
@@ -40,7 +39,7 @@ const BlogCard = ({ authorHidden, ...blog }) => {
   return (
     <Box className={classes.card}>
       <Grid container spacing={3}>
-        <Grid item xs={6} component={Link} to={`/blogs/${blog.slug}`}>
+        <Grid item sm={6} component={Link} to={`/blogs/${blog.slug}`}>
           <Box
             component='img'
             display='block'
@@ -49,7 +48,7 @@ const BlogCard = ({ authorHidden, ...blog }) => {
             className={classes.img}
           />
         </Grid>
-        <Grid item xs={6} container direction='column' justify='center'>
+        <Grid item sm={6} container direction='column' justify='center'>
           <Typography
             variant='h5'
             component='h2'
@@ -67,8 +66,8 @@ const BlogCard = ({ authorHidden, ...blog }) => {
             variant='subtitle2'
             className={classes.wrapText}
           >
-            {`${content.substr(0, 300)} ${
-              content.length > 300 ? '......' : ''
+            {`${content.substr(0, 200)} ${
+              content.length > 200 ? '......' : ''
             }`}
           </Typography>
 

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import BlogCard from '../../components/BlogCard';
-import BlogPageSkeleton from '../../Skeletons/BlogPageSkeleton';
 import Pagination from '@material-ui/lab/Pagination';
+import Container from '@material-ui/core/Container';
 
+import BlogPageSkeleton from '../../Skeletons/BlogPageSkeleton';
 import { fetchFollowersBlogs } from '../../api/helper';
+import BlogCard from '../../components/BlogCard';
 import useStyles from './WhatFollowersSayStyle';
 
 const WhatFollowersSay = () => {

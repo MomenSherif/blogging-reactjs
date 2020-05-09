@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
-import Dante, { defaultProps } from 'Dante2';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Chip from '@material-ui/core/Chip';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
 import Box from '@material-ui/core/Box';
+
 import { DropzoneArea } from 'material-ui-dropzone';
+import Dante from 'Dante2';
 
 import { addBlog, editBlog } from '../../redux/actions/blogs';
-import { fetchBlog } from '../../api/helper';
 import { BACKEND_BASE_URL } from '../../config';
-
+import { fetchBlog } from '../../api/helper';
 import useStyles from './BlogFormStyle';
 
 const BlogForm = ({ onAddBlog, onEditBlog }) => {
@@ -84,8 +84,6 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(title);
-
     if (!title || body.blocks.length === 1) return;
 
     // Handle Edit Submit

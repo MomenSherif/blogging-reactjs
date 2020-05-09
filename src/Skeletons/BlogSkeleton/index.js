@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
-import { Container, Grid } from '@material-ui/core';
+
+import Container from '@material-ui/core/Container';
 import Skeleton from '@material-ui/lab/Skeleton';
+import Grid from '@material-ui/core/Grid';
 
 const BlogSkeleton = () => {
   return (

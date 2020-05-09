@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import queryString from 'querystring';
 import { useLocation } from 'react-router-dom';
+import queryString from 'querystring';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { fetchSearchedBlogs, debounce } from '../../api/helper';
 import BlogCard from '../../components/BlogCard';
-
-import { fetchSearchedBlogs } from '../../api/helper';
-import { debounce } from '../../api/helper';
 
 import useStyles from './SearchStyle';
 const Search = () => {
@@ -30,6 +28,7 @@ const Search = () => {
     setIsSearching(true);
     setSearchState((prevState) => ({ ...prevState, [field]: value }));
   };
+
   const debounceOnChange = debounce(onChange, 500);
 
   useEffect(() => {
@@ -79,6 +78,7 @@ const Search = () => {
           />
         </Grid>
       </Grid>
+
       {isSearching ? (
         <Box display='flex' flexDirection='column' alignItems='center'>
           <CircularProgress />

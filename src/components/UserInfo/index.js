@@ -1,11 +1,14 @@
 import React from 'react';
 
-import { Grid, Typography, Box } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
+import Box from '@material-ui/core/Box';
 
 import moment from 'moment';
-import man from '../../assets/man.svg';
+
 import woman from '../../assets/woman.svg';
+import man from '../../assets/man.svg';
 import useStyles from './UserInfoStyle';
 
 const UserInfo = ({

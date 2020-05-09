@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import { Link, Route, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import Tabs from '@material-ui/core/Tabs';
+import Box from '@material-ui/core/Box';
 import Tab from '@material-ui/core/Tab';
-
-import { Link, Route } from 'react-router-dom';
-
-import useStyles from './RegisterationStyle';
-import rick_morty from '../../assets/rick-morty.svg';
 
 import SignUpForm from '../../components/SignUpForm';
 import SignInForm from '../../components/SignInForm';
+import rick_morty from '../../assets/rick-morty.svg';
+import useStyles from './RegisterationStyle';
 
-const Registeration = ({ user, history }) => {
+const Registeration = ({ user }) => {
   const [value, setValue] = useState(0);
-
+  const history = useHistory();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   useEffect(() => {
     if (user) history.push('/');
-  }, [user, history]);
+  }, [user]);
 
   const classes = useStyles();
   return (

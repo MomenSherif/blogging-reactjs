@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Tooltip from '@material-ui/core/Tooltip';
 import SearchIcon from '@material-ui/icons/Search';
+import Tooltip from '@material-ui/core/Tooltip';
+import AppBar from '@material-ui/core/AppBar';
+import Grid from '@material-ui/core/Grid';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
 
 import zombieHead from '../assets/zombie-heade.svg';
-import man from '../assets/man.svg';
 import woman from '../assets/woman.svg';
+import man from '../assets/man.svg';
 
 const Header = ({ isAuthenticated, gender, slug }) => {
   const location = useLocation();
@@ -54,6 +54,7 @@ const Header = ({ isAuthenticated, gender, slug }) => {
             onChange={handleChange}
             indicatorColor='primary'
             style={{ flex: 1 }}
+            component='nav'
           >
             <Tab label='Home' component={Link} to='/' />
             {isAuthenticated && (

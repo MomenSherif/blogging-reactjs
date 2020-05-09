@@ -1,7 +1,7 @@
 import React from 'react';
-import Skeleton from '@material-ui/lab/Skeleton';
 
-import { Grid } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
+import Grid from '@material-ui/core/Grid';
 
 const UserInfoSkeleton = () => {
   return (

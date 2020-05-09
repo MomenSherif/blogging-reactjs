@@ -1,20 +1,23 @@
 import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, Link, useLocation } from 'react-router-dom';
+import { Switch, Route, Link, useLocation, Redirect } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-import Header from './layout/Header';
-import Home from './pages/Home';
-import BlogForm from './pages/BlogForm';
-import Blog from './pages/Blog';
+import PrivateRoute from './customRoutes/PrivateRoute';
+
 import WhatFollowersSay from './pages/WhatFollowersSay';
 import Registeration from './pages/Registeration';
-import User from './pages/User';
+import BlogForm from './pages/BlogForm';
+import NotFound from './pages/NotFound';
+import Header from './layout/Header';
 import Search from './pages/Search';
+import Home from './pages/Home';
+import Blog from './pages/Blog';
+import User from './pages/User';
 
 const App = ({ success, message, error, errors, isAuthenticated }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -42,14 +45,17 @@ const App = ({ success, message, error, errors, isAuthenticated }) => {
     <Fragment>
       <Header />
       <Switch>
+        <PrivateRoute path='/followed' component={WhatFollowersSay} />
+        <PrivateRoute path='/users/:slug' component={User} />
+        <PrivateRoute path='/blogs/add' exact component={BlogForm} />
+        <PrivateRoute path='/blogs/edit/:slug' component={BlogForm} />
+        <PrivateRoute path='/blogs/search' component={Search} />
         <Route path='/' exact component={Home} />
-        <Route path='/followed' component={WhatFollowersSay} />
-        <Route path='/users/:slug' component={User} />
-        <Route path='/auth' component={Registeration} />
-        <Route path='/blogs/add' component={BlogForm} />
-        <Route path='/blogs/edit/:slug' component={BlogForm} />
-        <Route path='/blogs/search' component={Search} />
         <Route path='/blogs/:slug' component={Blog} />
+        <Route path='/auth/sign-up' component={Registeration} />
+        <Route path='/auth/sign-in' component={Registeration} />
+        <Redirect from='/auth' exact to='/auth/sign-up' />
+        <Route path='*' component={NotFound} />
       </Switch>
 
       {/* Hide if not Authenticated or in add || edit page */}

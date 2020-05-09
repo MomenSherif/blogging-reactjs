@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-
 import { useForm } from 'react-hook-form';
+import { connect } from 'react-redux';
 import { object, string } from 'yup';
 
-import man from '../../assets/signup-man.svg';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+
 import { signUp } from '../../redux/actions/authentication';
+import man from '../../assets/signup-man.svg';
 import useStyles from './SignUpFormStyle';
 
 const schema = object().shape({

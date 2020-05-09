@@ -1,17 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-
 import { useForm } from 'react-hook-form';
+import { connect } from 'react-redux';
 import { object, string } from 'yup';
 
-import man from '../../assets/signup-man.svg';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+
 import { logIn } from '../../redux/actions/authentication';
+import man from '../../assets/signup-man.svg';
 import useStyles from './SignInFormStyle';
 
 const schema = object().shape({

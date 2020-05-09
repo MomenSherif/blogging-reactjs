@@ -14,8 +14,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 6,
   },
   blogTitle: {
-    textDecoration: 'none',
     color: 'inherit',
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
   },
 }));
 
