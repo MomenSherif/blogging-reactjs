@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   tag: {
     marginLeft: 6,
   },
-  blogTitle: {
+  link: {
     color: 'inherit',
     textDecoration: 'none',
     '&:hover': {

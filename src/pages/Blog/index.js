@@ -58,9 +58,15 @@ const Blog = ({ authId }) => {
         <Fragment>
           <Container maxWidth='md' className={classes.header}>
             <Grid container alignItems='center' justify='space-between'>
-              <Typography variant='h2' component='h1' className={classes.title}>
-                {blog.title}
-              </Typography>
+              <Grid item xs>
+                <Typography
+                  variant='h2'
+                  component='h1'
+                  className={classes.title}
+                >
+                  {blog.title}
+                </Typography>
+              </Grid>
               {authId === blog.author._id && (
                 <Grid item>
                   <Tooltip title='Edit Blog!' aria-label='edit blog' arrow>

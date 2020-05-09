@@ -56,7 +56,7 @@ const BlogCard = ({ authorHidden, ...blog }) => {
             noWrap
             className={classes.wrapText}
           >
-            <Link to={`/blogs/${blog.slug}`} className={classes.blogTitle}>
+            <Link to={`/blogs/${blog.slug}`} className={classes.link}>
               {blog.title}
             </Link>
           </Typography>
@@ -83,7 +83,15 @@ const BlogCard = ({ authorHidden, ...blog }) => {
                 />
               </Grid>
               <Grid item>
-                <Typography variant='body1'>{`${blog.author.firstName} ${blog.author.lastName}`}</Typography>
+                <Typography
+                  variant='body1'
+                  component={Link}
+                  to={`/users/${blog.author.slug}`}
+                  className={classes.link}
+                  display='block'
+                >
+                  {`${blog.author.firstName} ${blog.author.lastName}`}
+                </Typography>
                 <BlogDate date={blog.createdAt} />
               </Grid>
             </Grid>

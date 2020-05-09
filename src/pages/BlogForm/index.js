@@ -22,11 +22,6 @@ import useStyles from './BlogFormStyle';
 const BlogForm = ({ onAddBlog, onEditBlog }) => {
   const { slug } = useParams();
   const history = useHistory();
-  const {
-    palette: { type },
-  } = useTheme();
-
-  console.log(type);
 
   const isEditMode = slug ? true : false;
   const [formState, setFormState] = useState(() => ({
