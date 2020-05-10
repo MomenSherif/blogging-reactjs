@@ -3,8 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -18,6 +19,7 @@ import useStyles from './DeleteBlogDialogStyle';
 const DeleteBlogDialog = ({ _id, title, onDelete }) => {
   const history = useHistory();
   const [open, setOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -28,9 +30,12 @@ const DeleteBlogDialog = ({ _id, title, onDelete }) => {
   };
 
   const handleDeleteConfirmed = () => {
-    onDelete().then(() => {
-      history.replace('/');
-    });
+    setIsSubmitting(true);
+    onDelete()
+      .then(() => {
+        history.replace('/');
+      })
+      .catch((e) => setIsSubmitting(false));
   };
 
   const classes = useStyles();
@@ -56,8 +61,9 @@ const DeleteBlogDialog = ({ _id, title, onDelete }) => {
         maxWidth='xs'
         fullWidth
       >
+        {isSubmitting && <LinearProgress />}
         <DialogTitle id='alert-dialog-title'>
-          Confirm Delete{' '}
+          Confirm Delete
           <span role='img' aria-label='make sure!'>
             ☝
           </span>
@@ -71,7 +77,12 @@ const DeleteBlogDialog = ({ _id, title, onDelete }) => {
           <Button onClick={handleClose} color='primary'>
             Disagree
           </Button>
-          <Button onClick={handleDeleteConfirmed} color='primary'>
+          <Button
+            onClick={handleDeleteConfirmed}
+            color='primary'
+            size='small'
+            disabled={isSubmitting}
+          >
             Delete
           </Button>
         </DialogActions>
