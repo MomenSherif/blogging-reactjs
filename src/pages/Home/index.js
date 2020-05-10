@@ -29,6 +29,7 @@ const Home = () => {
   const blogList = state.blogs.map((blog) => (
     <BlogCard key={blog._id} {...blog} />
   ));
+
   const classes = useStyles();
   return (
     <Container maxWidth='md' className={classes.container}>

@@ -1,4 +1,4 @@
 .public-DraftEditorPlaceholder-root {
-  background-color: transparent;
-  color: #0ca5ff;
+  background-color: transparent !important;
+  color: #0ca5ff !important;
 }

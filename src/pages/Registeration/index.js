@@ -17,12 +17,13 @@ import useStyles from './RegisterationStyle';
 const Registeration = ({ user }) => {
   const [value, setValue] = useState(0);
   const history = useHistory();
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   useEffect(() => {
-    if (user) history.push('/');
+    if (user) history.replace('/');
   }, [user]);
 
   const classes = useStyles();

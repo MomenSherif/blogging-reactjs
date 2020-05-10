@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'red !important',
     color: 'blue',
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
 }));
 
 export default useStyles;

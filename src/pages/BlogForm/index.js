@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
+import Backdrop from '@material-ui/core/Backdrop';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 import Box from '@material-ui/core/Box';
@@ -31,6 +33,8 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
     file: null,
     imgPreview: null,
   }));
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { body, _id, imgPreview, title, tags, file, loading } = formState;
 
@@ -85,6 +89,7 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
     e.preventDefault();
     if (!title || body.blocks.length === 1) return;
 
+    setIsSubmitting(true);
     // Handle Edit Submit
     if (isEditMode)
       return onEditBlog(_id, {
@@ -92,9 +97,11 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
         body: JSON.stringify(body),
         tags,
         photo: file,
-      }).then((slug) => {
-        if (slug) history.replace(`/blogs/${slug}`);
-      });
+      })
+        .then((slug) => {
+          if (slug) history.replace(`/blogs/${slug}`);
+        })
+        .catch((e) => setIsSubmitting(false));
 
     // Handle Add Sumbit
     if (!file) return;
@@ -104,9 +111,11 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
       body: JSON.stringify(body),
       tags,
       photo: file,
-    }).then((slug) => {
-      if (slug) history.replace(`/blogs/${slug}`);
-    });
+    })
+      .then((slug) => {
+        if (slug) history.replace(`/blogs/${slug}`);
+      })
+      .catch((e) => setIsSubmitting(false));
   };
 
   const handleChange = (editor) => {
@@ -214,7 +223,9 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
             color='primary'
             size='large'
             fullWidth
-            disabled={!title || body?.blocks.length === 1 || !imgPreview}
+            disabled={
+              !title || body?.blocks.length === 1 || !imgPreview || isSubmitting
+            }
             type='submit'
             className={classes.submitBtn}
           >
@@ -222,6 +233,9 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
           </Button>
         </form>
       )}
+      <Backdrop className={classes.backdrop} open={isSubmitting}>
+        <CircularProgress color='inherit' />
+      </Backdrop>
     </Container>
   );
 };
