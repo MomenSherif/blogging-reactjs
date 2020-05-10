@@ -160,7 +160,7 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
               acceptedFiles={['image/*']}
               filesLimit={1}
               dropzoneText='Drag & Drop image here or click'
-              maxFileSize={1000 * 1000}
+              maxFileSize={(1000 * 1000) / 2}
               showPreviewsInDropzone={false}
               dropzoneClass={classes.dropZone}
             />
