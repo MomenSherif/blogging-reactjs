@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { useTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
