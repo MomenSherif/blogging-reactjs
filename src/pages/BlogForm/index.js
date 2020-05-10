@@ -14,7 +14,6 @@ import { DropzoneArea } from 'material-ui-dropzone';
 import Dante from 'Dante2';
 
 import { addBlog, editBlog } from '../../redux/actions/blogs';
-import { BACKEND_BASE_URL } from '../../config';
 import { fetchBlog } from '../../api/helper';
 import useStyles from './BlogFormStyle';
 
@@ -45,7 +44,7 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
             body: JSON.parse(blog.body),
             title: blog.title,
             tags: blog.tags,
-            imgPreview: `${BACKEND_BASE_URL}${blog.photo}`,
+            imgPreview: `${blog.photo}`,
           });
         })
         .catch((e) => {

@@ -8,7 +8,6 @@ import Box from '@material-ui/core/Box';
 
 import moment from 'moment';
 
-import { BACKEND_BASE_URL } from '../../config';
 import woman from '../../assets/woman.svg';
 import man from '../../assets/man.svg';
 import useStyles from './BlogCardStyle';
@@ -44,7 +43,7 @@ const BlogCard = ({ authorHidden, ...blog }) => {
             component='img'
             display='block'
             boxShadow={2}
-            src={`${BACKEND_BASE_URL}${blog.photo}`}
+            src={`${blog.photo}`}
             className={classes.img}
           />
         </Grid>

@@ -17,7 +17,6 @@ import moment from 'moment';
 
 import DeleteBlogDialog from '../../components/DeleteBlogDialog';
 import BlogSkeleton from '../../Skeletons/BlogSkeleton';
-import { BACKEND_BASE_URL } from '../../config';
 import { fetchBlog } from '../../api/helper';
 import useStyles from './BlogStyle';
 
@@ -108,7 +107,7 @@ const Blog = ({ authId }) => {
           <Box
             className={classes.heroImage}
             style={{
-              backgroundImage: `url("${BACKEND_BASE_URL}${blog.photo}")`,
+              backgroundImage: `url("${blog.photo}")`,
             }}
           ></Box>
           <Container maxWidth='md' className={classes.content}>
