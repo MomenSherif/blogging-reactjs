@@ -56,7 +56,7 @@ const Header = ({ isAuthenticated, gender, slug }) => {
             indicatorColor='primary'
             style={{ flex: 1 }}
             component='nav'
-            scrollButtons='auto'
+            scrollButtons='on'
           >
             <Tab label='Home' component={Link} to='/' />
             {isAuthenticated && (

@@ -49,7 +49,12 @@ const Search = () => {
       <Typography variant='h2' component='h1' color='primary'>
         Search ☯
       </Typography>
-      <Grid container spacing={5} className={classes.inputsContainer}>
+      <Grid
+        container
+        spacing={5}
+        justify='center'
+        className={classes.inputsContainer}
+      >
         <Grid item sm>
           <TextField
             id='title'
