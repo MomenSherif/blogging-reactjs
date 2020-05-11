@@ -97,11 +97,10 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
         body: JSON.stringify(body),
         tags,
         photo: file,
-      })
-        .then((slug) => {
-          if (slug) history.replace(`/blogs/${slug}`);
-        })
-        .catch((e) => setIsSubmitting(false));
+      }).then((slug) => {
+        setIsSubmitting(false);
+        if (slug) history.replace(`/blogs/${slug}`);
+      });
 
     // Handle Add Sumbit
     if (!file) return;
@@ -111,11 +110,10 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
       body: JSON.stringify(body),
       tags,
       photo: file,
-    })
-      .then((slug) => {
-        if (slug) history.replace(`/blogs/${slug}`);
-      })
-      .catch((e) => setIsSubmitting(false));
+    }).then((slug) => {
+      setIsSubmitting(false);
+      if (slug) history.replace(`/blogs/${slug}`);
+    });
   };
 
   const handleChange = (editor) => {

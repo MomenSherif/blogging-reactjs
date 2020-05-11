@@ -79,6 +79,7 @@ const Search = () => {
             name='tag'
             label='Tag'
             fullWidth
+            defaultValue={searchState.tag}
             onChange={(e) => debounceOnChange('tag', e.target.value)}
           />
         </Grid>

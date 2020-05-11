@@ -95,7 +95,7 @@ const BlogCard = ({ authorHidden, ...blog }) => {
               </Grid>
             </Grid>
           )}
-          <Box marginLeft='auto'>
+          <Box display='flex' justifyContent='flex-end'>
             {blog.tags.length - tagList.length > 0 && '📌...'}
             {tagList}
           </Box>
