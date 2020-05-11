@@ -3,7 +3,7 @@
 [👋Give a try](https://blogging-reactjs.herokuapp.com/)
 ## Screenshot
 
-![Profile Screenshot](https://i.imgur.com/yrSblCn.png)
+![Profile Screenshot](https://i.imgur.com/2b1NcoE.png)
 
 ## Dependencies
 
