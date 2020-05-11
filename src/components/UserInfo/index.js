@@ -53,7 +53,7 @@ const UserInfo = ({
             {user.follows.length} Followings
           </Typography>
           <Typography variant='overline' color='textSecondary' component='span'>
-            {followers} Folowers
+            {followers} Followers
           </Typography>
         </Grid>
       </Grid>
