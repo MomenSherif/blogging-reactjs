@@ -63,7 +63,7 @@ const App = ({ success, message, error, errors, isAuthenticated }) => {
           <Fab
             color='primary'
             aria-label='add blog'
-            style={{ position: 'fixed', right: 40, bottom: 40 }}
+            style={{ position: 'fixed', right: 40, bottom: 40, zIndex: 9999 }}
             component={Link}
             to='/blogs/add'
           >
