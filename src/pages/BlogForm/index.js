@@ -87,7 +87,7 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title || body.blocks.length === 1) return;
+    if (!title || !body.blocks[0].text) return; // body.blocks[0].text: First Paragrah in Dante
 
     setIsSubmitting(true);
     // Handle Edit Submit
@@ -178,7 +178,7 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
           <Box marginBottom={5}>
             <Dante
               body_placeholder={
-                "Blog content, Don't forget to highlight to style"
+                "Blog content, Don't forget to highlight to style!"
               }
               content={body}
               widgets={[]}
@@ -224,7 +224,7 @@ const BlogForm = ({ onAddBlog, onEditBlog }) => {
             size='large'
             fullWidth
             disabled={
-              !title || body?.blocks.length === 1 || !imgPreview || isSubmitting
+              !title || !body?.blocks[0].text || !imgPreview || isSubmitting
             }
             type='submit'
             className={classes.submitBtn}

@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tag: {
     marginLeft: 6,
+    marginBottom: 6,
   },
 }));
 

@@ -57,6 +57,7 @@ const Header = ({ isAuthenticated, gender, slug }) => {
             style={{ flex: 1 }}
             component='nav'
             scrollButtons='on'
+            variant='scrollable'
           >
             <Tab label='Home' component={Link} to='/' />
             {isAuthenticated && (

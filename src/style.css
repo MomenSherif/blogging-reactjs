@@ -1,4 +1,8 @@
 .public-DraftEditorPlaceholder-root {
   background-color: transparent !important;
-  color: #0ca5ff !important;
+  color: #0ca6ff !important;
+  font-size: larger;
+}
+.inlineTooltip.is-active {
+  display: none !important;
 }
