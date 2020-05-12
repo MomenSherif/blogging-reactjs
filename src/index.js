@@ -4,15 +4,16 @@ import App from './App';
 import './style.css'; // fix Dante style to support dark theme
 import * as serviceWorker from './serviceWorker';
 
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { lightBlue } from '@material-ui/core/colors';
 import { BrowserRouter } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
 
-import ScrollToTop from './router_helpers/ScrollToTop';
+import ScrollToTop from './helper_components/ScrollToTop';
+import StatusHandler from './helper_components/StatusHandler';
 import store from './redux/store';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { lightBlue } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
   palette: {
@@ -37,6 +38,7 @@ ReactDOM.render(
         >
           <CssBaseline />
           <ScrollToTop />
+          <StatusHandler />
           <App />
         </SnackbarProvider>
       </Provider>

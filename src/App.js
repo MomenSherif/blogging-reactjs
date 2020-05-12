@@ -1,13 +1,12 @@
 import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, Link, useLocation, Redirect } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-import PrivateRoute from './router_helpers/PrivateRoute';
+import PrivateRoute from './helper_components/PrivateRoute';
 import WhatFollowersSay from './pages/WhatFollowersSay';
 import Registeration from './pages/Registeration';
 import BlogForm from './pages/BlogForm';
@@ -18,27 +17,8 @@ import Home from './pages/Home';
 import Blog from './pages/Blog';
 import User from './pages/User';
 
-const App = ({ success, message, error, errors, isAuthenticated }) => {
-  const { enqueueSnackbar } = useSnackbar();
+const App = ({ isAuthenticated }) => {
   const { pathname } = useLocation();
-
-  // Handle all snackbars messages from backed
-  useEffect(() => {
-    if (success)
-      enqueueSnackbar(message, {
-        variant: 'success',
-        autoHideDuration: 2000,
-        preventDuplicate: true,
-      });
-    else if (error)
-      errors.forEach((err) =>
-        enqueueSnackbar(err, {
-          variant: 'error',
-          autoHideDuration: 2000,
-          preventDuplicate: true,
-        })
-      );
-  }, [success, message, error, errors]);
 
   return (
     <Fragment>
@@ -76,10 +56,6 @@ const App = ({ success, message, error, errors, isAuthenticated }) => {
 };
 
 const mapStateToProps = (state) => ({
-  success: state.status.success,
-  message: state.status.message,
-  error: state.status.error,
-  errors: state.status.errors,
   isAuthenticated: !!state.auth.token,
 });
 

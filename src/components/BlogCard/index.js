@@ -106,7 +106,12 @@ const BlogCard = ({ authorHidden, ...blog }) => {
 };
 
 const BlogDate = ({ date }) => (
-  <Typography component='time' variant='caption' color='textSecondary'>
+  <Typography
+    component='time'
+    variant='caption'
+    color='textSecondary'
+    dateTime={moment(date).format('YYYY-M-D')}
+  >
     {moment(date).format('MMM D, YYYY')}
   </Typography>
 );
