@@ -56,7 +56,9 @@ const BlogCard = ({ authorHidden, ...blog }) => {
             className={classes.wrapText}
           >
             <Link to={`/blogs/${blog.slug}`} className={classes.link}>
-              {blog.title}
+              {`${blog.title.substr(0, 50)} ${
+                blog.title.length > 50 ? '......' : ''
+              }`}
             </Link>
           </Typography>
           <Typography
